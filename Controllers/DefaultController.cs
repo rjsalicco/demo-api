@@ -15,28 +15,27 @@ public class DefaultController : ControllerBase
         _logger = logger;
     }
 
-    [Authorize(Policy = "Admin")]
     [Route("/GetAdmin")]
     public String GetAdmin()
     {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
         return "Admin";
     }
 
-    [Authorize(Policy = "Representative")]
     [Route("/GetRepresentative")]
     public String GetRepresentative()
     {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
         return "Representative";
     }
 
-    [Authorize(Policy = "Either")]
     [Route("/GetEither")]
     public String GetEither()
     {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
         return "Admin or Representative";
     }
 
-    [Authorize]
     [Route("/GetAnyClaim/{claim}")]
     public String GetAny(string claim)
     {

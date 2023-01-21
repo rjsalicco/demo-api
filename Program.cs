@@ -8,10 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
-builder.Services.AddAuthorization(options => {
-    options.AddPolicy("Admin", policy => policy.RequireClaim("extension_Role", "Admin"));
-    options.AddPolicy("Representative", policy => policy.RequireClaim("extension_Role", "Representative"));
-    options.AddPolicy("Either", policy => policy.RequireClaim("extension_Role", "Admin", "Representative"));
+builder.Services.AddAuthorization(options =>
+{
+    // options.AddPolicy("Admin", policy => policy.RequireClaim("extension_Roles", "Admin"));
+    // Supports applying same "role" to two different claims in the jwt
+    options.AddPolicy("Admin", policy =>
+        {
+            policy.RequireAssertion(context =>
+            context.User.HasClaim(c =>
+                ((c.Type == "extension_Roles" && c.Value == "Admin") ||
+                (c.Type == ClaimConstants.Scope && c.Value == "Admin"))));
+        });
+    options.AddPolicy("Representative", policy => policy.RequireClaim("extension_Roles", "Representative"));
+    options.AddPolicy("Either", policy => policy.RequireClaim("extension_Roles", "Admin", "Representative"));
 });
 
 builder.Services.AddControllers();
