@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DemoAPI.Controllers;
+namespace Default.Controllers;
 
 [ApiController]
 [Route("[controller]")]

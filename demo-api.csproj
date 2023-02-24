@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-DemoAPI-e797537c-6a24-4bd2-8cdd-74c81fbce1a6</UserSecretsId>
+    <UserSecretsId>aspnet-demo-api-e797537c-6a24-4bd2-8cdd-74c81fbce1a6</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
